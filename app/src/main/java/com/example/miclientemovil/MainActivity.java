@@ -4,8 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -30,11 +34,14 @@ public class MainActivity extends AppCompatActivity {
     private Vector<String> misdatos;
     public Vector<String> valor;
     private String res;
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        prefs= getSharedPreferences("Config",MODE_PRIVATE);
         recyclerView = findViewById(R.id.recycler_view);
         misdatos = new Vector<String>();
         misdatos.add("123000 Wilson Callisaya");
@@ -91,5 +98,33 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return Clientes;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_insertar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_insertar:
+                startActivity(new Intent(this, InsertarCliente.class));
+                return true;
+            case R.id.menu_cerrar:
+                editor = prefs.edit();
+                editor.putBoolean("onlogin", false);
+                editor.apply();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adaptador.updateData(ListaClientes(8));
     }
 }

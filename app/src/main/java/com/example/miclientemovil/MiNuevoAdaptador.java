@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
 import java.util.Vector;
 
 public class MiNuevoAdaptador extends RecyclerView.Adapter<MiNuevoAdaptador.ViewHolder> {
@@ -30,6 +31,7 @@ public class MiNuevoAdaptador extends RecyclerView.Adapter<MiNuevoAdaptador.View
     public void onBindViewHolder(ViewHolder holder, int i) {
         holder.titulo.setText(lista.get(i));
     }
+
     @Override
     public int getItemCount() {
         return lista.size();
@@ -43,5 +45,9 @@ public class MiNuevoAdaptador extends RecyclerView.Adapter<MiNuevoAdaptador.View
             subtitutlo = (TextView)itemView.findViewById(R.id.subtitulo);
             icon = (ImageView)itemView.findViewById(R.id.icono);
         }
+    }
+
+    void updateData(Vector<String> lista) {
+        this.lista = lista; notifyDataSetChanged();
     }
 }
