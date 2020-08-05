@@ -14,9 +14,9 @@ import java.util.Vector;
 
 public class MiNuevoAdaptador extends RecyclerView.Adapter<MiNuevoAdaptador.ViewHolder> {
     private LayoutInflater inflador;
-    private Vector<String> lista;
+    private List<Cliente> lista;
 
-    public MiNuevoAdaptador(Context context, Vector<String> lista) {
+    public MiNuevoAdaptador(Context context, List<Cliente> lista) {
         this.lista = lista;
         inflador = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -29,7 +29,8 @@ public class MiNuevoAdaptador extends RecyclerView.Adapter<MiNuevoAdaptador.View
     }
     @Override
     public void onBindViewHolder(ViewHolder holder, int i) {
-        holder.titulo.setText(lista.get(i));
+        holder.titulo.setText(lista.get(i).getNombre()+" "+lista.get(i).getApellido());
+        holder.subtitutlo.setText(lista.get(i).getcodigo());
     }
 
     @Override
@@ -47,7 +48,7 @@ public class MiNuevoAdaptador extends RecyclerView.Adapter<MiNuevoAdaptador.View
         }
     }
 
-    void updateData(Vector<String> lista) {
+    void updateData(List<Cliente> lista) {
         this.lista = lista; notifyDataSetChanged();
     }
 }

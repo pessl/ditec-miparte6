@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         misdatos.add("123000 Pepito Domingez");
 
         /*adaptador = new MiNuevoAdaptador(this, misdatos);*/
-        adaptador = new MiNuevoAdaptador(this, ListaClientes(8));
+        adaptador = new MiNuevoAdaptador(this, leerJSon(conseguirstring()));
 
         recyclerView.setAdapter(adaptador);
         layoutManager = new LinearLayoutManager(this);
@@ -116,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 editor = prefs.edit();
                 editor.putBoolean("onlogin", false);
                 editor.apply();
+                startActivity(new Intent(this, LoginActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -125,6 +126,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        adaptador.updateData(ListaClientes(8));
+        adaptador.updateData(leerJSon(conseguirstring()));
     }
 }
